@@ -88,6 +88,7 @@ class _chatscreenState extends State<chatscreen> {
                   ),
                 ),
                 Visibility(
+                  visible: !isLoading,
                   child: Container(
                     color: Color(0xff444654),
                     child: IconButton(
@@ -96,33 +97,35 @@ class _chatscreenState extends State<chatscreen> {
                         color: Colors.grey,
                       ),
                       onPressed: () async {
-                        setState(
-                          () {
+                        if (controller.text != "") {
+                          setState(
+                            () {
+                              messages.add(
+                                Chatmessage(
+                                  text: controller.text,
+                                  chatMessageType: ChatMessageType.user,
+                                ),
+                              );
+                              isLoading = true;
+                            },
+                          );
+                          var input = controller.text;
+                          controller.clear();
+                          Future.delayed(const Duration(milliseconds: 50))
+                              .then((_) => ScrollMethod());
+                          var output = await fetchFromAPI.sendMsg(input);
+                          setState(() {
+                            isLoading = false;
                             messages.add(
                               Chatmessage(
-                                text: controller.text,
-                                chatMessageType: ChatMessageType.user,
+                                text: output,
+                                chatMessageType: ChatMessageType.bot,
                               ),
                             );
-                            isLoading = true;
-                          },
-                        );
-                        var input = controller.text;
-                        controller.clear();
-                        Future.delayed(const Duration(milliseconds: 50))
-                            .then((_) => ScrollMethod());
-                        var output = await fetchFromAPI.sendMsg(input);
-                        setState(() {
-                          isLoading = false;
-                          messages.add(
-                            Chatmessage(
-                              text: output,
-                              chatMessageType: ChatMessageType.bot,
-                            ),
-                          );
-                        });
-                        Future.delayed(const Duration(milliseconds: 50))
-                            .then((_) => ScrollMethod());
+                          });
+                          Future.delayed(const Duration(milliseconds: 50))
+                              .then((_) => ScrollMethod());
+                        }
                       },
                     ),
                   ),

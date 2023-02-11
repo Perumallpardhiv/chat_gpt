@@ -1,5 +1,6 @@
 import 'package:chatgpt/model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MessagesBody extends StatefulWidget {
   final String text;
@@ -12,6 +13,8 @@ class MessagesBody extends StatefulWidget {
 }
 
 class _MessagesBodyState extends State<MessagesBody> {
+  IconData icn = Icons.copy;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,7 +39,7 @@ class _MessagesBodyState extends State<MessagesBody> {
                   margin: EdgeInsets.only(right: 16),
                   child: Icon(
                     Icons.person,
-                    color: Colors.white, 
+                    color: Colors.white,
                   ),
                 ),
           Expanded(
@@ -51,22 +54,42 @@ class _MessagesBodyState extends State<MessagesBody> {
                     ),
                   ),
                   child: widget.chatMessageType == ChatMessageType.bot
-                      ? Text(
+                      ? SelectableText(
                           widget.text.substring(2),
                           style: TextStyle(
                             color: Colors.white,
                           ),
+                          toolbarOptions:
+                              ToolbarOptions(copy: true, selectAll: true),
                         )
-                      : Text(
+                      : SelectableText(
                           widget.text,
                           style: TextStyle(
                             color: Colors.white,
                           ),
+                          toolbarOptions:
+                              ToolbarOptions(copy: true, selectAll: true),
                         ),
                 ),
               ],
             ),
-          )
+          ),
+          IconButton(
+            icon: Icon(
+              icn,
+              color: Colors.grey,
+            ),
+            onPressed: () {
+              setState(() {
+                icn = Icons.check;
+              });
+              Future.delayed(Duration(milliseconds: 1000)).then((value) {
+                icn = Icons.copy;
+              });
+              final value = ClipboardData(text: widget.text);
+              Clipboard.setData(value);
+            },
+          ),
         ],
       ),
     );

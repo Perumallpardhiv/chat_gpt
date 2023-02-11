@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 class fetchFromAPI {
   final apikey = apiKey;
-  static String url = "https://api.openai.com/v1/completions";
+  static String url = url1;
 
   static sendMsg(String input) async {
     final response = await http.post(
