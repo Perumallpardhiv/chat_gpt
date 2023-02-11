@@ -26,12 +26,18 @@ class fetchFromAPI {
       ),
     );
 
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body.toString());
-      var msg = data['choices'][0]['text'];
-      return msg;
-    } else {
-      print('Failed to Fetch Data');
+    try {
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body.toString());
+        var msg = data['choices'][0]['text'];
+        return msg;
+      } else {
+        print('Failed to Fetch Data');
+        return 'Failed to Fetch Data';
+      }
+    } catch (e) {
+      print(e.toString());
+      return e.toString();
     }
   }
 }

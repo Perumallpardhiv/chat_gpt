@@ -55,7 +55,9 @@ class _MessagesBodyState extends State<MessagesBody> {
                   ),
                   child: widget.chatMessageType == ChatMessageType.bot
                       ? SelectableText(
-                          widget.text.substring(2),
+                          widget.text.length <= 2
+                              ? widget.text
+                              : widget.text.substring(2),
                           style: TextStyle(
                             color: Colors.white,
                           ),
@@ -88,7 +90,10 @@ class _MessagesBodyState extends State<MessagesBody> {
               });
               final value = widget.chatMessageType == ChatMessageType.user
                   ? ClipboardData(text: widget.text)
-                  : ClipboardData(text: widget.text.substring(2));
+                  : ClipboardData(
+                      text: widget.text.length <= 2
+                          ? widget.text
+                          : widget.text.substring(2));
               Clipboard.setData(value);
             },
           ),

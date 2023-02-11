@@ -33,13 +33,10 @@ class _chatscreenState extends State<chatscreen> {
         backgroundColor: Color(0xff444654),
         elevation: 0,
         centerTitle: true,
-        title: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: const Text(
-            "CHAT-GPT",
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-            ),
+        title: const Text(
+          "CHAT-GPT",
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),
