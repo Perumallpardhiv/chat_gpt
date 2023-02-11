@@ -2,6 +2,7 @@ import 'package:chatgpt/apifetch.dart';
 import 'package:chatgpt/messagesBody.dart';
 import 'package:chatgpt/model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class chatscreen extends StatefulWidget {
   const chatscreen({super.key});
@@ -61,8 +62,9 @@ class _chatscreenState extends State<chatscreen> {
           ),
           Visibility(
             visible: isLoading,
-            child: CircularProgressIndicator(
+            child: SpinKitThreeBounce(
               color: Colors.white,
+              size: 20.0,
             ),
           ),
           Padding(
