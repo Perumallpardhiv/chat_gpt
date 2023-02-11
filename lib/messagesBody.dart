@@ -86,7 +86,9 @@ class _MessagesBodyState extends State<MessagesBody> {
               Future.delayed(Duration(milliseconds: 1000)).then((value) {
                 icn = Icons.copy;
               });
-              final value = ClipboardData(text: widget.text);
+              final value = widget.chatMessageType == ChatMessageType.user
+                  ? ClipboardData(text: widget.text)
+                  : ClipboardData(text: widget.text.substring(2));
               Clipboard.setData(value);
             },
           ),

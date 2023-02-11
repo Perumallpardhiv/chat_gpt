@@ -109,7 +109,7 @@ class _chatscreenState extends State<chatscreen> {
                               isLoading = true;
                             },
                           );
-                          var input = controller.text;
+                          var input = controller.text.replaceAll('.', '').replaceAll('!', '').toLowerCase();
                           controller.clear();
                           Future.delayed(const Duration(milliseconds: 50))
                               .then((_) => ScrollMethod());
