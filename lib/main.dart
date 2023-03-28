@@ -1,4 +1,4 @@
-import 'package:chatgpt/chatscreen.dart';
+import 'package:chatgpt_api/chatscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

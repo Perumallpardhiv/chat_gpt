@@ -1,6 +1,6 @@
-import 'package:chatgpt/apifetch.dart';
-import 'package:chatgpt/messagesBody.dart';
-import 'package:chatgpt/model.dart';
+import 'package:chatgpt_api/apifetch.dart';
+import 'package:chatgpt_api/messagesBody.dart';
+import 'package:chatgpt_api/model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -106,7 +106,10 @@ class _chatscreenState extends State<chatscreen> {
                               isLoading = true;
                             },
                           );
-                          var input = controller.text.replaceAll('.', '').replaceAll('!', '').toLowerCase();
+                          var input = controller.text
+                              .replaceAll('.', '')
+                              .replaceAll('!', '')
+                              .toLowerCase();
                           controller.clear();
                           Future.delayed(const Duration(milliseconds: 50))
                               .then((_) => ScrollMethod());

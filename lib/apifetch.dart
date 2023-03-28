@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:chatgpt/constant.dart';
+import 'package:chatgpt_api/constant.dart';
 import 'package:http/http.dart' as http;
 
 class fetchFromAPI {
