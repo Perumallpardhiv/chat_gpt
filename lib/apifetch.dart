@@ -33,11 +33,11 @@ class fetchFromAPI {
         return msg;
       } else {
         print('Failed to Fetch Data');
-        return 'Failed to Fetch Data';
+        return null;
       }
     } catch (e) {
       print(e.toString());
-      return e.toString();
+      return null;
     }
   }
 }

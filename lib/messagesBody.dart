@@ -18,16 +18,16 @@ class _MessagesBodyState extends State<MessagesBody> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      padding: EdgeInsets.all(15),
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.all(15),
       color: widget.chatMessageType == ChatMessageType.user
-          ? Color(0xff343541)
-          : Color(0xff444654),
+          ? const Color(0xff343541)
+          : const Color(0xff444654),
       child: Row(
         children: [
           widget.chatMessageType == ChatMessageType.bot
               ? Container(
-                  margin: EdgeInsets.only(right: 16),
+                  margin: const EdgeInsets.only(right: 16),
                   child: CircleAvatar(
                     child: Image.asset(
                       'assets/1.jpeg',
@@ -36,8 +36,8 @@ class _MessagesBodyState extends State<MessagesBody> {
                   ),
                 )
               : Container(
-                  margin: EdgeInsets.only(right: 16),
-                  child: Icon(
+                  margin: const EdgeInsets.only(right: 16),
+                  child: const Icon(
                     Icons.person,
                     color: Colors.white,
                   ),
@@ -47,8 +47,8 @@ class _MessagesBodyState extends State<MessagesBody> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: EdgeInsets.all(8),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.all(8),
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(10),
                     ),
@@ -57,20 +57,22 @@ class _MessagesBodyState extends State<MessagesBody> {
                       ? SelectableText(
                           widget.text.length <= 2
                               ? widget.text
-                              : widget.text.substring(2),
-                          style: TextStyle(
+                              : widget.text == "Failed to Fetch Data"
+                                  ? widget.text
+                                  : widget.text.substring(2),
+                          style: const TextStyle(
                             color: Colors.white,
                           ),
                           toolbarOptions:
-                              ToolbarOptions(copy: true, selectAll: true),
+                              const ToolbarOptions(copy: true, selectAll: true),
                         )
                       : SelectableText(
                           widget.text,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                           ),
                           toolbarOptions:
-                              ToolbarOptions(copy: true, selectAll: true),
+                              const ToolbarOptions(copy: true, selectAll: true),
                         ),
                 ),
               ],
@@ -85,7 +87,7 @@ class _MessagesBodyState extends State<MessagesBody> {
               setState(() {
                 icn = Icons.check;
               });
-              Future.delayed(Duration(milliseconds: 1000)).then((value) {
+              Future.delayed(const Duration(milliseconds: 1000)).then((value) {
                 icn = Icons.copy;
               });
               final value = widget.chatMessageType == ChatMessageType.user
@@ -93,7 +95,8 @@ class _MessagesBodyState extends State<MessagesBody> {
                   : ClipboardData(
                       text: widget.text.length <= 2
                           ? widget.text
-                          : widget.text.substring(2));
+                          : widget.text.substring(2),
+                    );
               Clipboard.setData(value);
             },
           ),

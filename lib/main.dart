@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+    const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );
   runApp(const MyApp());
 }
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: chatscreen(),
+      home: const chatscreen(),
     );
   }
 }
