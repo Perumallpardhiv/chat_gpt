@@ -20,7 +20,7 @@ class _chatscreenState extends State<chatscreen> {
   ScrollMethod() {
     scrollController.animateTo(
       scrollController.position.maxScrollExtent,
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
       curve: Curves.easeOut,
     );
   }
@@ -28,9 +28,9 @@ class _chatscreenState extends State<chatscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff343541),
+      backgroundColor: const Color(0xff343541),
       appBar: AppBar(
-        backgroundColor: Color(0xff444654),
+        backgroundColor: const Color(0xff444654),
         elevation: 0,
         centerTitle: true,
         title: const Text(
@@ -44,7 +44,7 @@ class _chatscreenState extends State<chatscreen> {
         children: [
           Expanded(
             child: ListView.builder(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               controller: scrollController,
               shrinkWrap: true,
               itemCount: messages.length,
@@ -59,7 +59,7 @@ class _chatscreenState extends State<chatscreen> {
           ),
           Visibility(
             visible: isLoading,
-            child: SpinKitThreeBounce(
+            child: const SpinKitThreeBounce(
               color: Colors.white,
               size: 20.0,
             ),
@@ -72,14 +72,14 @@ class _chatscreenState extends State<chatscreen> {
                   child: TextField(
                     controller: controller,
                     textCapitalization: TextCapitalization.sentences,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       fillColor: Color(0xff444654),
                       filled: true,
                       border: InputBorder.none,
                       focusedBorder: InputBorder.none,
                       disabledBorder: InputBorder.none,
                     ),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                     ),
                   ),
@@ -87,44 +87,49 @@ class _chatscreenState extends State<chatscreen> {
                 Visibility(
                   visible: !isLoading,
                   child: Container(
-                    color: Color(0xff444654),
+                    color: const Color(0xff444654),
                     child: IconButton(
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.send,
                         color: Colors.grey,
                       ),
                       onPressed: () async {
                         if (controller.text != "") {
-                          setState(
-                            () {
-                              messages.add(
-                                Chatmessage(
-                                  text: controller.text,
-                                  chatMessageType: ChatMessageType.user,
-                                ),
-                              );
-                              isLoading = true;
-                            },
-                          );
+                          setState(() {
+                            messages.add(
+                              Chatmessage(
+                                text: controller.text,
+                                chatMessageType: ChatMessageType.user,
+                              ),
+                            );
+                            isLoading = true;
+                          });
                           var input = controller.text
                               .replaceAll('.', '')
                               .replaceAll('!', '')
                               .toLowerCase();
                           controller.clear();
-                          Future.delayed(const Duration(milliseconds: 50))
-                              .then((_) => ScrollMethod());
+                          Future.delayed(const Duration(milliseconds: 50)).then(
+                            (_) => ScrollMethod(),
+                          );
                           var output = await fetchFromAPI.sendMsg(input);
                           setState(() {
                             isLoading = false;
                             messages.add(
-                              Chatmessage(
-                                text: output,
-                                chatMessageType: ChatMessageType.bot,
-                              ),
+                              output == null
+                                  ? Chatmessage(
+                                      text: "Failed to Fetch Data",
+                                      chatMessageType: ChatMessageType.bot,
+                                    )
+                                  : Chatmessage(
+                                      text: output,
+                                      chatMessageType: ChatMessageType.bot,
+                                    ),
                             );
                           });
-                          Future.delayed(const Duration(milliseconds: 50))
-                              .then((_) => ScrollMethod());
+                          Future.delayed(const Duration(milliseconds: 50)).then(
+                            (_) => ScrollMethod(),
+                          );
                         }
                       },
                     ),
